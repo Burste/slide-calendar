@@ -1,0 +1,173 @@
+$id: "react-calendar";
+$color_border: #eee;
+$color_black: #666;
+$color_white: #fff;
+$color_red: #e10500;
+$color_bCyan: #24a07c;
+$color_green: #66bb3c;
+$color_orange: #ff7800;
+$color_yellow:#fff9e3;
+$color_umber:#ede9dd;
+$font: "Microsoft JhengHei", serif;
+$is-config: (
+  default:(class:"default", color:$color_black, bg:none),
+  guarantee:(class:"guarantee", color:$color_white, bg:$color_green),
+  avail:(class:"avail", color: $color-bCyan, bg:none),
+  waiting:(class:"waiting", color: $color-bCyan, bg:none),
+  closed:(class:"closed", color:$color-orange, bg:none)
+);
+@mixin status-variant($color, $background) {
+  color: $color;
+  background-color: $background;
+}
+@each $name, $value in $is-config {
+  $class: map-get($value, class);
+  $color: map-get($value, color);
+  $bg: map-get($value, bg);
+
+  .is-#{$class} {
+    @include status-variant($color, $bg);
+  }
+}
+
+* {
+  font-family: $font;
+}
+html {
+  font-family: $font;
+  font-size: 12px;
+}
+.container {
+  margin: 0 auto;
+  // width: 100%;
+  // width: 480px;
+}
+##{$id} {
+  margin: 0 auto;
+  width: 100%;
+  min-width: 650px;
+  color: $color_black;
+  // max-width: 1180px;
+  .navigation {
+    display: flex;
+    .label {
+      flex-grow: 1;
+    }
+  }
+  .weekdays {
+    font-size: 1.3rem;
+    padding: 0.75rem 0.5rem;
+    display: flex;
+    text-align: center;
+    .weekday {
+      flex-basis: 14.2857%;
+      max-width: 14.2857%;
+      overflow: hidden;
+      padding: 0.5rem;
+    }
+  }
+  .days {
+    font-size: 2rem;
+    text-align: center;
+    display: flex;
+    flex-wrap: wrap;
+    .day {
+      height: 100px;
+      height: 87px;
+      flex-basis: 14.2857%;
+      max-width: 14.2857%;
+      overflow: hidden;
+      font-size: 1.1rem;
+      min-width: 90px;
+      padding: 0 0 0 0.25rem;
+      //flex-wrap:wrap;
+      .content {
+        height: 100%;
+        .row {
+          display: flex;
+          //flex-direction: row;
+          span {
+            flex: 1;
+            &.num {
+              text-align: left;
+              flex: 1;
+            }
+            &.flag {
+              text-align: right;
+              flex-basis: 30px;
+              max-width: 55px;
+              text-align: center;
+              color: $color-white;
+              background: $color-green;
+            }
+          }
+        }
+        .price {
+          color: $color_red;
+        }
+      }
+    }
+  }
+  
+  .detail {
+    text-align: left;
+    span {
+      //display: inline-block;
+      &.register {
+        color: $color_orange;
+      }
+    }
+  }
+}
+button {
+  padding: 0.75rem 0.5rem;
+  background: none;
+  border: solid 1px $color_border;
+  &:hover{
+    background-color: $color_yellow;
+  }
+  &:focus{
+    outline:none
+  }
+}
+.navigation {
+  background-color: $color_umber;
+  height: 50px;
+  button {
+    font-size: 1.34rem;
+    width: 20px;
+    position: relative;
+    &:nth-child(3){
+      background-color: $color_white;
+    }
+    &%after {
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      margin: auto;
+      display: inline-block;
+      width: 0;
+      height: 0;
+      border-style: solid;
+    }
+    &.prev-button {
+      &:after {
+        @extend %after;
+        left: -1px;
+        border-width: 7px 7px 7px 0;
+        border-color: transparent #e10500 transparent transparent;
+      }
+    }
+    &.next-button {
+      &:after {
+        @extend %after;
+        right: -1px;
+        border-width: 7px 0px 7px 7px;
+        border-color: transparent transparent transparent #e10500;
+      }
+    }
+  }
+}
