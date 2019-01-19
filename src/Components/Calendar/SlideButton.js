@@ -77,6 +77,16 @@ class SlideButton extends Component {
             moveSlide(0);
         })
     }
+    componentWillUnmount{
+        let left = document.getElementsByClassName('slide_left')[0];
+        let right = document.getElementsByClassName('slide_right')[0];
+        left.removeEventListener('click', function () {
+            moveSlide(1);
+        })
+        right.removeEventListener('click', function () {
+            moveSlide(0);
+        })
+    }
 }
 
 export default SlideButton;

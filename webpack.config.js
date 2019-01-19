@@ -4,7 +4,6 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
 	entry: {
-		//preview: './preview.js'
 		preview: './src/index.js'
 	},
 	output: {
